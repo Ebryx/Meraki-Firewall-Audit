@@ -15,10 +15,10 @@ class Utility:
     def createExcelFile(self, networkName):
         fileName = "".join(e for e in networkName if e.isalnum() or e.isspace()) 
         self.fileName = "_".join(fileName.split()) + '.xlsx'
-        self.writerForNetwork = pd.ExcelWriter(self.fileName, engine='xlsxwriter')
+        self.writerForNetwork = pd.ExcelWriter(os.path.join("output", self.fileName), engine='xlsxwriter')
 
     def createExcelFileForOrg(self):
-        self.writerForOrganization = pd.ExcelWriter(MERAKI_ORGID+'.xlsx', engine='xlsxwriter')
+        self.writerForOrganization = pd.ExcelWriter(os.path.join("output", MERAKI_ORGID+'.xlsx'), engine='xlsxwriter')
 
     def outputExcelSheet(self, operation, data):
         pdObj = pd.json_normalize(data)
@@ -67,7 +67,7 @@ class Utility:
         return out
 
 class Logger(object):
-    def __init__(self, filename="default.log"):
+    def __init__(self, filename=os.path.join("output", "default.log")):
         self.terminal = sys.stdout
         self.log = open(filename, "a")
 
@@ -286,7 +286,7 @@ if __name__ == '__main__':
 
     meraki_obj = MerakiClass()
     
-    with open('output.txt', 'w') as file:
+    with open(os.path.join("output", 'output.txt'), 'w') as file:
 
         # create excel sheet for organization
         meraki_obj.utilityObj.createExcelFileForOrg()
