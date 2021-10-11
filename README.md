@@ -27,6 +27,7 @@ apt install docker.io
 
 ```
 git clone https://github.com/Ebryx/Meraki-Firewall-Audit
+cd Meraki-Firewall-Audit/
 ```
 
 <br/>
